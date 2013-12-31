@@ -51,7 +51,9 @@ public class Dao {
 			String content;
 			String writeDate;
 			String imgName;
-
+			
+			FileDownloader fileDownloader = new FileDownloader(context);
+			
 			JSONArray jArr = new JSONArray(jsonData);
 
 			for (int i = 0; i < jArr.length(); i++) {
@@ -82,13 +84,15 @@ public class Dao {
 						+ writeDate + "', '" + imgName + "');";
 
 				database.execSQL(sql);
+				
+				fileDownloader.downFile("http://10.73.44.93/~stu03/image/" + imgName, imgName);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Log.e("Dao > insertJsonData", "Error" + e);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Log.e("Dao > insertJsonData", "Error" + e);
 		}
 	}
 

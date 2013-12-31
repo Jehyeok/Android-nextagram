@@ -1,10 +1,11 @@
 package com.example.nextagram_android;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -41,14 +42,16 @@ public class ReadActivity extends Activity {
 			tvContent.setText(article.getContent());
 			Log.i("ReadActivity : onCreate", article.getTitle());
 
-			InputStream ims = getApplicationContext().getAssets().open(article.getImgName());
-			Drawable d = Drawable.createFromStream(ims, null);
-			ivImage.setImageDrawable(d);
+			String imgPath = getApplicationContext().getFilesDir().getPath() + "/"
+					+ article.getImgName();
+			File imgLoadPath = new File(imgPath);
+
+			if (imgLoadPath.exists()) {
+				// 이미지가 있으면 비트맵으로 변환해서 표현
+				Bitmap bitmap = BitmapFactory.decodeFile(imgPath);
+				ivImage.setImageBitmap(bitmap);
+			}
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			Log.e("ReadActivity:OnCreate", e + "");
-		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Log.e("ReadActivity:OnCreate", e + "");
