@@ -22,8 +22,7 @@ import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
 import com.devspark.sidenavigation.SideNavigationView.Mode;
 
-public class MainActivity extends Activity implements OnClickListener,
-		OnItemClickListener {
+public class MainActivity extends Activity implements OnItemClickListener {
 	private final Handler handler = new Handler();
 	private ArrayList<ListData> articleData = new ArrayList<ListData>();
 	private ListView mainListView;
@@ -67,12 +66,6 @@ public class MainActivity extends Activity implements OnClickListener,
 			sideNavigationView.setMode(Mode.LEFT);
 			
 			getActionBar().setDisplayHomeAsUpEnabled(true);
-			
-			Button writeBtn = (Button) findViewById(R.id.write_btn);
-			Button refreshBtn = (Button) findViewById(R.id.refresh_btn);
-
-			writeBtn.setOnClickListener(this);
-			refreshBtn.setOnClickListener(this);
 
 			mainListView = (ListView) findViewById(R.id.listView1);
 		} catch (Exception e) {
@@ -141,25 +134,6 @@ public class MainActivity extends Activity implements OnClickListener,
 		return super.onOptionsItemSelected(item);
 	}
 	
-	@Override
-	public void onClick(View v) {
-		try {
-			switch (v.getId()) {
-			case R.id.write_btn:
-				Intent intentWrite = new Intent(this, WriteActivity.class);
-				startActivity(intentWrite);
-				break;
-
-			case R.id.refresh_btn:
-				refreshData();
-				break;
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view,
 			int position, long id) {
